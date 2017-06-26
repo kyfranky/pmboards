@@ -1,5 +1,5 @@
 // Set up socket.io
-let socket = io('http://localhost:3030/');
+let socket = io();
 
 // Set up Feathers client side
 let app = feathers()
