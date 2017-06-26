@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free web designs for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+  <!-- Bootstrap core CSS -->
+  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom Theme files -->
+  <link href="stylesheets/style.css" rel="stylesheet">
+  <link href="stylesheets/login.css" rel="stylesheet" type="text/css" media="all" />
+
+    <!-- //Custom Theme files -->
+
+    <!-- web font -->
+    <link href='//fonts.googleapis.com/css?family=Text+Me+One' rel='stylesheet' type='text/css'>
+    <!-- //web font -->
+
+</head>
+
+<body>
+
+<!-- NavBar-->
+<nav class="navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PM Board</a>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="menuItem"><a href="login.html">Sign in</a></li>
+        <li class="menuItem"><a href="signup.html">Register</a></li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div class="title">
+
+  <h1>Login</h1>
+
+</div>
+
+<!-- main -->
+<div class="main-w3layouts">
+    <div class="main-agileinfo">
+          <div class="agileits-top">
+            <div class="alert alert-danger" role="alert" hidden>
+              <strong>Warning!</strong> The Email and Password combination given do not match.
+            </div>
+            <form name="loginForm" id="loginForm">
+                <input class="text" type="email" name="email" placeholder="Email" maxlength="25" required="required">
+                <input class="text" type="password" name="password" placeholder="Password" minlength="6" maxlength="25" required="required">
+                <input type="submit" id="login" name="submit" value="send">
+            </form>
+
+            <p>Don't have an Account? <a href="signup.html"> Signup Now!</a></p>
+
+        </div>
+    </div>
+</div>
+<!-- //main -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//npmcdn.com/feathers-client@^2.0.0-pre.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  // Set up socket.io
+  const host = 'http://localhost:3030';
+  let socket = io(host);
+
+  // Set up Feathers client side
+  let app = feathers()
+    .configure(feathers.socketio(socket))
+    .configure(feathers.hooks())
+    .configure(feathers.authentication({
+      storage: window.localStorage
+    }));
+
+  const application = {
+
+    // Log in either using the given email/password or the token from storage
+    login(credentials) {
+
+      app.authenticate({
+        strategy: 'local',
+        email: credentials.email,
+        password: credentials.password
+      })
+        .then(response => {
+          console.log('Authenticated!', response);
+          // By this point your accessToken has been stored in
+          // localstorage
+          return app.passport.verifyJWT(response.accessToken);
+        })
+        .then(() => {
+          window.location.href = "/lobby.html"
+        })
+        .catch(function(error){
+
+            console.log(error)
+
+          $('.alert-danger').show();
+
+        });
+
+    },
+
+    // Show the login page
+    showLogin(error = {}) {
+      if($('.login').length) {
+        console.log("Error");
+      } else {
+        console.log("wow");
+      }
+    },
+
+    // Retrieve email/password object from the login/signup page
+    getCredentials() {
+      const user = {
+        email: $('[name="email"]').val(),
+        password: $('[name="password"]').val()
+      };
+
+      return user;
+    }
+  };
+
+  $('#loginForm').on('submit', function (event) {
+    event.preventDefault();
+    const user = application.getCredentials();
+    application.login(user);
+  })
+
+</script>
+
+</body>
+
+</html>

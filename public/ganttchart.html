@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="stylesheets/bootstrap-datepicker3.css">
+
+  <link href="stylesheets/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="fonts/lineicons/style.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="stylesheets/project_room.css" rel="stylesheet">
+  <link href="stylesheets/style-responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/lobby_final.css">
+
+  <link rel="stylesheet" href="https://cdn.anychart.com/css/13.1/anychart-ui.min.css"/>
+
+  <!-- Custom styles for this template -->
+
+  <link rel="stylesheet" href="stylesheets/ganttchart.css">
+
+  <link rel="stylesheet" href="stylesheets/chat.css">
+
+  <link rel="stylesheet" href="stylesheets/popup.css">
+
+  <style>
+
+    body {
+      background-color: #ecf0f1;
+    }
+
+    #containerBox {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .pullbutton {
+
+      color: #7b8a8b;
+
+    }
+
+    tspan{
+      text-transform: capitalize;
+    }
+
+  </style>
+
+
+</head>
+
+<body>
+
+<!--header start-->
+<header class="header black-bg">
+
+  <div class="sidebar-toggle-box" style="visibility: hidden">
+    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+  </div>
+  <!--logo start-->
+  <a href="#" class="logo"><b>PM Board</b></a>
+  <!--logo end-->
+  <div class="nav notify-row" id="top_menu">
+    <!--  notification start -->
+    <ul class="nav top-menu">
+
+      <li>
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Home" id="homy">
+          <i class="fa fa-home"></i>
+        </a>
+      </li>
+
+      <li>
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Preview MindMap" id="linkPMM">
+          <i class="fa fa-map-o"></i>
+        </a>
+      </li>
+
+
+    </ul>
+    <!--  notification end -->
+  </div>
+
+  <div class="top-menu">
+    <ul class="nav pull-right top-menu">
+      <li><a class="logout" id="logout" href="#">Logout</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="masker" id="menu1">
+
+  <div id="menu-add">
+
+    <div style="width:350px; margin: 0 auto 20px;">
+      <form id="addData">
+
+        <h1>Add Data</h1>
+
+        <select class="form-control" id="type">
+          <option value="Task">Task</option>
+          <option value="Milestone">Milestone</option>
+        </select>
+
+        <input type="text" placeholder="Task Name" class="form-control" id="taskName" required>
+
+        <div class="input-daterange" style="color: #1a1a1a">
+          <input type="text" class="form-control" name="sdate" id="startDate" placeholder="Start Date" required/>
+          <input type="text" class="form-control" name="edate" id="endDate" placeholder="End Date" required/>
+        </div>
+
+
+        <div class="input-daterange" style="color: #1a1a1a">
+          <input type="text" class="form-control" id="msDate" placeholder="Date" required hidden/>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" id="addDat">Add</button>
+        <button class="btn btn-primary" onclick="hideMenu()">Cancel</button>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="masker" id="menu2">
+
+  <div id="menu-Name">
+    <div style="width:350px; margin: 0 auto 20px;">
+      <h1>Change Task Name</h1>
+      <input type="text" placeholder="Task Name" class="form-control" id="tName">
+      <button class="btn btn-primary" id="chgData">Change</button>
+      <button class="btn btn-primary" onclick="hideMenu2()">Exit</button>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div id="containerBox" style="width:90%; height:80vh;border: 1px solid #dce4ec; margin: 10vh auto; display: block">
+  <div id="container"></div>
+</div>
+
+<div class="pullbutton asd">
+
+  <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>
+
+</div>
+
+<div class="ui chat">
+
+  <div class="left-menu">
+    <form action="#" class="search">
+      <input placeholder="search..." type="search" name="" id="">
+      <input type="submit" value="&#xf002;">
+    </form>
+    <menu class="list-friends">
+
+    </menu>
+  </div>
+
+  <div class="chat">
+
+    <ul class="messages">
+
+
+    </ul>
+
+    <div class="write-form">
+      <textarea placeholder="Type your message" name="e" id="texxt" rows="2"></textarea>
+      <span class="send">Send</span>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.js"></script>
+
+<script src="http://cdn.anychart.com/js/13.1/anychart-bundle.dev.min.js"></script>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="scripts/bootstrap-datepicker.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//npmcdn.com/feathers-client@^2.0.0-pre.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="scripts/mousetrap.min.js"></script>
+
+<script src="scripts/authenticated.js"></script>
+<script src="scripts/auth-gantt.js"></script>
+
+<script src="scripts/messenger.js"></script>
+<script src="scripts/recorder.js"></script>
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script>
+
+<script src='scripts/randomColor.js'></script>
+
+<script src="scripts/chat.js"></script>
+
+<script src="scripts/criticalpath.js"></script>
+<script src="scripts/ganttchart.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+
+<script>
+
+  $("#type").change(function (a) {
+
+    if ($("#type").val() === "Task") {
+      $("#msDate").css("display", "none");
+
+      $("#startDate").css("display", "block");
+      $("#endDate").css("display", "block");
+    }
+    else {
+      $("#msDate").css("display", "block");
+
+      $("#startDate").css("display", "none");
+      $("#endDate").css("display", "none")
+    }
+
+  })
+
+  $('.input-daterange').datepicker({
+    autoclose: true
+  });
+
+</script>
+
+</body>
+</html>

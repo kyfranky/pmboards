@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mind Map Prototype</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link href="stylesheets/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="fonts/lineicons/style.css">
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="stylesheets/project_room.css" rel="stylesheet">
+  <link href="stylesheets/style-responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/lobby_final.css">
+
+  <link rel="stylesheet" href="stylesheets/bootstrap-datetimepicker.min.css"/>
+
+  <link rel="stylesheet" href="stylesheets/chat.css">
+
+  <link rel="stylesheet" href="stylesheets/mindmap-menu.css">
+
+
+  <link rel="stylesheet" href="stylesheets/bootstrap-datepicker3.css">
+
+
+
+</head>
+
+<body onload="init()">
+
+<!--header start-->
+<header class="header black-bg">
+
+  <div class="sidebar-toggle-box" style="visibility: hidden">
+    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+  </div>
+
+  <!--logo start-->
+  <a href="#" class="logo"><b>PM Board</b></a>
+  <!--logo end-->
+  <div class="nav notify-row" id="top_menu">
+    <!--  notification start -->
+    <ul class="nav top-menu">
+
+      <li>
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Home" id="homy">
+          <i class="fa fa-home"></i>
+        </a>
+      </li>
+
+      <li>
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Preview GanttChart" id="linkPGC">
+          <i class="fa fa-tasks"></i>
+        </a>
+      </li>
+
+
+    </ul>
+    <!--  notification end -->
+  </div>
+
+  <div class="top-menu">
+    <ul class="nav pull-right top-menu">
+      <li><a class="logout" id="logout" href="#">Logout</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="text-center">
+
+  <div id="floater">
+    <button id="button-slide-left" class="glyphicon glyphicon-chevron-right btn btn-default pull-left"
+            aria-hidden="true"></button>
+  </div>
+  <div id="floater-right">
+    <button id="button-slide-right" class="glyphicon glyphicon-chevron-left btn btn-default pull-right"
+            aria-hidden="true"></button>
+  </div>
+
+</div>
+
+<div id="wrapper" class="wrapper">
+
+  <main class="content">
+    <div id="sample">
+
+      <div id="myDiagramDiv" style="border: solid 1px black; width:95%; height:90vh; margin: 10px auto"></div>
+
+      <div style="display: none">
+        <button id="SaveButton" onclick="save()">Save</button>
+        <button onclick="load()">Load</button>
+        <button onclick="layoutAll()">Layout</button>
+        <textarea id="mySavedModel"></textarea>
+      </div>
+
+
+    </div>
+
+  </main><!-- /content -->
+
+</div><!-- /wrapper -->
+
+<nav id="menu-slide-lefts" class="menu menu-slide-lefts">
+
+  <div style="width: 95%; margin:auto; padding:0;">
+    <button class="menu-close">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+            </span>
+    </button>
+  </div>
+
+  <!-- <div class="menu-footer">
+      Menu footer
+  </div> -->
+
+</nav><!-- /menu push-right -->
+
+<nav id="menu-slide-left" class="menu menu-slide-left" style="width: 20%">
+
+  <div class="menu-wrapper ">
+
+    <div style="width: 90%; margin: auto; display: none;">
+      <button class="menu-close">
+            <span class="glyphicon glyphicon-remove-circle pull-right" aria-hidden="true">
+            </span>
+      </button>
+    </div>
+
+    <div class="title" style="width:95%;height:7.5vh;margin:auto;text-align: center;">
+      <hr style="width: 50%;margin: 7px auto 3px;">
+      <h3 style="margin: 5px auto;color: white;"> Task List </h3>
+      <hr style="width: 50%;margin: 3px auto;">
+    </div>
+
+    <div>
+
+      <ul data-bind="foreach: datas">
+        <li style="list-style: none">
+          <div style="display: flex">
+
+            <h5 style="width: 33.33%" data-bind="text: name"></h5>
+            <h5 style="width: 33.33%" data-bind="date: actualStart"></h5>
+            <h5 style="width: 33.33%" data-bind="date: actualEnd"></h5>
+
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
+
+  </div>
+
+</nav>
+
+<nav id="menu-slide-rights" class="menu menu-slide-rights">
+
+  <div style="width: 95%; margin:auto; padding:0;">
+    <button class="menu-close">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+            </span>
+    </button>
+  </div>
+
+
+  <!-- <div class="menu-footer">
+      Menu footer
+  </div> -->
+
+
+</nav><!-- /menu push-right -->
+
+<nav id="menu-slide-right" class="menu menu-slide-right">
+
+  <div class="menu-wrapper">
+
+    <div style="width:90%;margin: auto; display: none;">
+      <button class="menu-close">
+            <span class="glyphicon glyphicon-remove-circle pull-left" aria-hidden="true">
+            </span>
+      </button>
+    </div>
+
+    <div class="title" style="width:95%;height:5vh;margin:auto;text-align: center;">
+      <hr style="width: 50%;margin: 7px auto 3px;">
+      <h3 style="margin: 5px auto;color: white;"> Properties </h3>
+      <hr style="width: 50%;margin: 3px auto 7px;">
+    </div>
+
+    <div data-bind="template: { name: 'GanttDataTemplate', foreach: firstMatch}"></div>
+
+    <div class="form-group" style="width: 80%; margin: auto;" data-bind="visible: false">
+      <input type="text" class="form-control" id="key" data-bind="value: mmid" disabled>
+      <input type="text" class="form-control" id="parentkey" data-bind="value: mmparentid" disabled>
+      <input type="text" class="form-control" id="txt" data-bind="value: mmname" disabled>
+    </div>
+
+    <div class="menu-layer" data-bind="visible: mmid().length == 0" style="width: 100%">
+      <h2>Click Mind Map</h2>
+    </div>
+
+    <div class="menu-layer" data-bind="visible: mmid().length !== 0 && firstMatch() === null && checkParent()"
+         style="color: black">
+      <h3 style="color: white">Add to Gantt Charts
+        ?</h3>
+      <button data-bind="click:addItem" style="color: black">
+        Add data
+      </button>
+    </div>
+
+    <div class="menu-layer" data-bind="visible: mmid().length !== 0 && firstMatch() === null && !checkParent()"
+         style="color: black">
+      <h3 style="color: white; text-align: center">Add The Root Parent to Gantt Chart First ! </h3>
+    </div>
+
+    <!-- <div class="menu-footer">
+        Menu footer
+    </div> -->
+
+  </div>
+
+</nav><!-- /menu push-right -->
+
+<div id="mask" class="mask"></div><!-- /mask -->
+
+<div class="pullbutton asd" style="z-index: 9999">
+  <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>
+</div>
+<div class="ui" style="z-index: 9999">
+  <div class="left-menu">
+    <form action="#" class="search">
+      <input placeholder="search..." type="search" name="" id="">
+      <input type="submit" value="&#xf002;">
+    </form>
+    <menu class="list-friends">
+
+    </menu>
+  </div>
+  <div class="chat">
+    <ul class="messages"></ul>
+    <div class="write-form">
+      <textarea placeholder="Type your message" name="e" id="texxt" rows="2"></textarea>
+      <span class="send">Send</span>
+    </div>
+  </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//npmcdn.com/feathers-client@^2.0.0-pre.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="scripts/mousetrap.min.js"></script>
+
+<script src="scripts/authenticated.js"></script>
+<script src="scripts/auth-mindmap.js"></script>
+
+<script src="scripts/messenger.js"></script>
+<script src="scripts/recorder.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.4/go-debug.js"></script>
+
+<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.2.debug.js'></script>
+<script src="scripts/knockout.mapping-latest.debug.js"></script>
+<script src="scripts/knockout-date-bindings.js"></script>
+<script src="scripts/knockout.live.mindmap.js"></script>
+
+<script src="scripts/bootstrap-datepicker.js"></script>
+
+<script src="scripts/chat.js"></script>
+<script src="scripts/mindmap.js"></script>
+<script src="scripts/mindmap-menu.js"></script>
+<script src="scripts/MindMapToGantt.js"></script>
+
+<script id="GanttDataTemplate" type="text/html">
+
+  <div class="form-group" style="width: 90%; margin:10px auto;" hidden>
+    <label for="parent">Parent :</label>
+    <input type="text" class="form-control" id="parent" data-bind=" value: parent">
+  </div>
+
+  <div class="form-group" style="width: 90%; margin:10px auto;">
+    <label for="name">Task Name :</label>
+    <input type="text" class="form-control" id="name" data-bind=" value: name">
+  </div>
+
+  <div class="form-group" data-bind="if: id() === '0' || type() === 'Task Group'" style="width: 90%; margin:10px auto;">
+    <label for="types1">Type :</label>
+
+    <select id="types1" class="form-control" data-bind="
+        options: $root.type2
+        value: type" disabled>
+    </select>
+
+  </div>
+
+  <div class="form-group" data-bind="if: id() !== '0' && type() !== 'Task Group'" style="width: 90%; margin:10px auto;">
+    <label for="types">Type :</label>
+
+    <select id="types" class="form-control" data-bind="
+        options: $root.type1,
+        value: type">
+    </select>
+  </div>
+
+  <div data-bind="if: type() === 'Task Group' ">
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label>Planned Date :</label>
+      <div class="input-daterange input-group" id="datepickersss">
+        <input type="text" class="input-sm form-control" name="start" data-bind="date: baselineStart, dateFormat: 'YYYY-MM-DD'" disabled />
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" data-bind="date: baselineEnd, dateFormat: 'YYYY-MM-DD'" disabled=""/>
+      </div>
+    </div>
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label>Actual Date :</label>
+      <div class="input-daterange input-group" id="datepickerss">
+        <input type="text" class="input-sm form-control" name="start" data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'" disabled/>
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" data-bind="date: actualEnd, dateFormat: 'YYYY-MM-DD'" disabled=""/>
+      </div>
+    </div>
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label for="duration">Actual Duration :</label>
+      <input class="form-control" type="text" id="duration" data-bind="value:actualPeriods" disabled/>
+    </div>
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label for="durations"> Planned Duration :</label>
+      <input class="form-control" type="text" id="durations" data-bind="value:basePeriods" disabled/>
+    </div>
+
+  </div>
+
+  <div id="asds" data-bind="if: type() === 'Task' ">
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+
+      <label>Planned Date :</label>
+
+      <div class="input-daterange input-group">
+        <input type="text" class="input-sm form-control" name="start" data-bind="date: baselineStart, dateFormat: 'YYYY-MM-DD'" />
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" data-bind="date: baselineEnd, dateFormat: 'YYYY-MM-DD'"/>
+      </div>
+
+    </div>
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label for="durationsss"> Planned Duration :</label>
+      <input class="form-control" type="text" id="durationsss" data-bind="value:basePeriods" disabled/>
+    </div>
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+
+      <label>Actual Date :</label>
+
+      <div class="input-daterange input-group">
+        <input type="text" class="input-sm form-control" name="start" data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'" />
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" data-bind="date: actualEnd, dateFormat: 'YYYY-MM-DD'"/>
+      </div>
+    </div>
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label for="durationss">Actual Duration :</label>
+      <input class="form-control" type="text" id="durationss" data-bind="value:actualPeriods" disabled/>
+    </div>
+
+  </div>
+
+  <div data-bind="if: type() === 'Milestone' ">
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label for="sdatems">Date :</label>
+      <input class="form-control" type="date" id="sdatems" data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'  "/>
+    </div>
+
+  </div>
+
+
+  <!-- <input style="color: #000" type='date' class="form-control" data-bind="value: actualStart"/> -->
+
+  <div style="border: 1px solid white; width:95%; margin: 0 auto; margin-bottom: 10px;  ">
+
+    <div class="form-group" style="width: 90%; margin:10px auto;">
+      <label>Connector :</label>
+      <span class="fa fa-plus" aria-hidden="true"
+            data-bind="click:  function() { addConnectors($root.relationship(),$root.relationshipType()) }"
+            style="cursor: pointer"></span>
+    </div>
+
+    <div style="border-top: 1px solid white;">
+
+      <div class="form-group" style="width: 75%; margin:10px auto;">
+        <label>connect To :</label>
+        <select class="form-control" data-bind="
+        options: $root.filteredItems,
+        optionsText: 'name',
+        optionsValue: 'id',
+        value: $root.relationship,
+        optionsCaption: 'none' ">
+        </select>
+      </div>
+
+      <div class="form-group" style="width: 75%; margin:10px auto;">
+        <label>connector Type :</label>
+        <select class="form-control" data-bind="
+        options: $root.connecttype,
+        value: $root.relationshipType,
+        optionsCaption: 'none' ">
+        </select>
+      </div>
+
+    </div>
+
+    <div data-bind="foreach:connector" style="text-align: center">
+      <div style="width: 100%">
+        <span data-bind="text:$root.connectorName(connectTo())"></span>
+        <span data-bind="text:connectorType"></span>
+        <span class="fa fa-times" aria-hidden="true" data-bind="click: function() {$parent.connector.remove($data)}"
+              style="cursor: pointer"></span>
+      </div>
+    </div>
+
+  </div>
+
+</script>
+
+<script>
+
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
+  $('body').on('focus',".input-daterange", function(){
+    $(this).datepicker({
+      format: "yyyy-mm-dd",
+      multidate: false,
+      autoclose: true,
+    })
+  })
+
+</script>
+
+
+</body>
+</html>

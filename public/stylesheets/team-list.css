@@ -1,0 +1,268 @@
+#pop-client {
+
+  color: #333;
+  width: 450px;
+  height: calc(90vh - 60px);
+  margin: calc((100vh - 60px - (90vh - 60px)) / 2) auto;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
+
+  border: none;
+
+  font-family: 'Open Sans', Arial, sans-serif;
+
+  font-weight: normal;
+
+  overflow: auto;
+
+}
+
+#pop-header {
+
+  font-size: 15pt;
+  width: 100%;
+  border-bottom: 1px solid #EBEBEB;
+
+}
+
+#pop-header h1 {
+
+  padding: 10px;
+
+  font-size: 12pt;
+
+  font-weight: 500;
+
+}
+
+#pop-header h1 span {
+
+  margi-left: 15px;
+  font-size: 12pt;
+
+}
+
+#pop-inner-properties {
+
+  width: 100%;
+  height: 75px;
+  border-bottom: 1px solid #EBEBEB;
+  border-top: 1px solid #EBEBEB;
+
+  font-size: 12px;
+  font-weight: normal;
+
+  display: flex;
+
+}
+
+#prop-right{
+  display: flex;
+}
+
+#prop-right ul{
+  margin-left: 5px;
+}
+
+#prop-right ul:first-child{
+  font-weight: bold;
+}
+
+
+
+#prop-right ul li{
+  margin-top: 5px;
+}
+
+#prop-right ul li span{
+  margin-top: 5px;
+  width: 100px;
+}
+
+#pop-inner-header {
+
+  margin: 10px 5px;
+  font-size: 10pt;
+  font-weight: 400;
+
+}
+
+#pop-inner-header span:nth-child(odd):hover {
+  color: #c12c42;
+  cursor: pointer;
+}
+
+.pop-search {
+  width: 100%;
+  height: 45px;
+  border-bottom: 1px solid #EBEBEB;
+
+}
+
+.pop-search .form-inline {
+  margin: 5px;
+}
+
+.form-inline label {
+
+  font-size: 12pt;
+
+}
+
+#search-friend {
+
+  color: black;
+  margin: 5px;
+  width: 175px;
+  height: 25px
+
+}
+
+#search-find {
+
+  color: black;
+  margin: 5px;
+  width: 175px;
+  height: 25px
+
+}
+
+.pop-client-bar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+
+  border-bottom: 1px solid #EBEBEB;
+
+
+}
+
+.bar-image {
+
+}
+
+.bar-image img {
+  width: 57.5px;
+  height: 57.5px;
+  border-radius: 50%;
+  margin-left: 15px;
+}
+
+.bar-data {
+  color: #7f8c8d;
+  width: calc(100% - 150px);
+}
+
+#pop-content-1 .bar-data {
+  width: calc(100% - 75px);
+}
+
+.bar-data ul {
+  font-size: 11pt ;
+  font-weight: 500;
+  margin-left: 15px;
+}
+
+.bar-data ul li {
+  margin-bottom: 5px;
+  height: 15px;
+
+  width: 75%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+
+}
+
+.bar-data ul li p{
+
+  width: 50%;
+  height: 15px;
+
+  margin-top: 5px;
+
+  margin-right: 10px;
+
+  color: rgba(0,0,0,0.7);
+  text-transform: capitalize;
+
+  font-size: 8pt;
+
+  font-weight: normal;
+
+
+
+  overflow: hidden;
+  white-space: nowrap; /* Don't forget this one */
+  text-overflow: ellipsis;
+
+}
+
+.bar-data ul li p span{
+  margin-right: 5px;
+  color: rgba(0,0,0,0.5);
+}
+
+.bar-data ul li p{
+  margin-right: 5px;
+  color: rgba(0,0,0,1);
+}
+
+.bar-data ul li:first-child {
+  color:#1abc9c;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+
+
+.bar-button {
+  width: 75px;
+  text-align: center;
+}
+
+.bar-button span {
+  font-size: 20px;
+  margin: 27.5px auto;
+  padding: 0 5px;
+}
+
+.addbutton, .bar-btn-acc, .bar-btn-dec {
+  background: rgba(0,0,0,0);
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20pt;
+  margin: 27.5px auto;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.addbutton:hover {
+  color: #1abc9c;
+}
+
+.bar-btn-acc:hover {
+  color: #1abc9c;
+}
+
+.bar-btn-dec:hover {
+  color: #c12c42;
+}
+
+.hideit {
+  display: none;
+}
+
+.greenit {
+
+  color: #1abc9c;
+
+}

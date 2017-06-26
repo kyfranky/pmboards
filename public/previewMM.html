@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mind Map Prototype</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="">
+</head>
+
+<body onload="init()">
+
+<div id="wrapper" class="wrapper">
+
+  <main class="content">
+    <div id="sample">
+
+      <div id="myDiagramDiv" style="border: solid 1px black; width:95%; height:90vh; margin: 10px auto"></div>
+
+      <div style="display: none">
+        <button id="SaveButton" onclick="save()">Save</button>
+        <button onclick="load()">Load</button>
+        <button onclick="layoutAll()">Layout</button>
+        <textarea id="mySavedModel">
+{ "class": "go.TreeModel",
+  "nodeDataArray": [
+{"key":0, "text":"Mind Map", "loc":"0 0", "movable":"false", "font":"Italic small-caps bold 48px Georgia, Serif"},
+{"key":1, "parent":0, "text":"Getting more time", "brush":"skyblue", "dir":"right", "loc":"263.04785156249994 -16.01406249999999"},
+{"key":11, "parent":1, "text":"Wake up early", "brush":"skyblue", "dir":"right", "loc":"397.0478515625002 -57.01406250000001"},
+{"key":12, "parent":1, "text":"Delegate", "brush":"skyblue", "dir":"right", "loc":"397.0478515625002 -16.014062499999994"},
+{"key":13, "parent":1, "text":"Simplify", "brush":"skyblue", "dir":"right", "loc":"397.0478515625002 24.985937499999995"},
+{"key":2, "parent":0, "text":"More effective use", "brush":"darkseagreen", "dir":"right", "loc":"263.04785156249994 86.4859375"},
+{"key":21, "parent":2, "text":"Planning", "brush":"darkseagreen", "dir":"right", "loc":"400.81298828125006 65.9859375"},
+{"key":211, "parent":21, "text":"Priorities", "brush":"darkseagreen", "dir":"right", "loc":"480.81298828124983 45.48593750000001"},
+{"key":212, "parent":21, "text":"Ways to focus", "brush":"darkseagreen", "dir":"right", "loc":"480.81298828124983 86.4859375"},
+{"key":22, "parent":2, "text":"Goals", "brush":"darkseagreen", "dir":"right", "loc":"400.81298828125006 106.9859375"},
+{"key":3, "parent":0, "text":"Time wasting", "brush":"palevioletred", "dir":"left", "loc":"-30.000000000000014 -31.389062500000012"},
+{"key":31, "parent":3, "text":"Too many meetings", "brush":"palevioletred", "dir":"left", "loc":"-136.517578125 -82.6390625"},
+{"key":32, "parent":3, "text":"Too much time spent on details", "brush":"palevioletred", "dir":"left", "loc":"-136.51757812499994 -21.1390625"},
+{"key":33, "parent":3, "text":"Message fatigue", "brush":"palevioletred", "dir":"left", "loc":"-136.51757812499997 19.8609375"},
+{"key":331, "parent":31, "text":"Check messages less", "brush":"palevioletred", "dir":"left", "loc":"-280.07666015624983 -103.1390625"},
+{"key":332, "parent":31, "text":"Message filters", "brush":"palevioletred", "dir":"left", "loc":"-280.07666015625006 -62.139062499999994"},
+{"key":4, "parent":0, "text":"Key issues", "brush":"coral", "dir":"left", "loc":"-29.999999999999986 101.86093749999998"},
+{"key":41, "parent":4, "text":"Methods", "brush":"coral", "dir":"left", "loc":"-125.00000000000009 60.860937500000006"},
+{"key":42, "parent":4, "text":"Deadlines", "brush":"coral", "dir":"left", "loc":"-124.99999999999997 101.86093749999998"},
+{"key":43, "parent":4, "text":"Checkpoints", "brush":"coral", "dir":"left", "loc":"-124.99999999999994 142.86093749999998"}
+ ]}
+  </textarea>
+      </div>
+
+
+    </div>
+
+  </main><!-- /content -->
+
+</div><!-- /wrapper -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//npmcdn.com/feathers-client@^2.0.0-pre.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.4/go-debug.js"></script>
+
+<script>
+
+  // Set up socket.io
+  let socket = io();
+
+  // Set up Feathers client side
+  let app = feathers()
+    .configure(feathers.socketio(socket))
+    .configure(feathers.hooks())
+    .configure(feathers.authentication({
+      storage: localStorage
+    }));
+
+  socket.on('connect', function () {
+    const roomId = getQueryVariable("id");
+    app.authenticate()
+      .catch(function (error) {
+        window.location.href = '/login.html';
+      });
+    if (roomId) {
+      socket.emit('joinRoom', {
+        text: this.id,
+        roomId: roomId
+      });
+    }
+  });
+
+  socket.on('updateMM', function () {
+    console.log("sdf")
+    location.reload(true)
+  });
+
+  function getQueryVariable(variable) {
+
+    let query = window.location.search.substring(1);
+
+    let vars = query.split("&");
+
+    if (!query) {
+      window.location.href = '/lobby.html';
+    }
+    if (!vars) {
+      window.location.href = '/lobby.html';
+    }
+    else {
+      for (let i = 0; i < vars.length; i++) {
+        let pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          if (pair[1]) {
+            return pair[1];
+          }
+          else {
+            window.location.href = '/lobby.html';
+          }
+        }
+        else {
+          window.location.href = '/lobby.html';
+        }
+      }
+    }
+    window.location.href = '/lobby.html';
+
+  }
+
+</script>
+
+<script src="scripts/previewMM.js"></script>
+
+</body>
+</html>

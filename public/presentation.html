@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Project Charter</title>
+  <title>Push Menu!</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="stylesheets/rippler.min.css">
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="stylesheets/hover-min.css">
+
+  <link rel="stylesheet" href="stylesheets/chat.css">
+
+  <link rel="stylesheet" href="stylesheets/projectcharter-menu.css">
+
+  <link href="stylesheets/project-charter.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
+  <style>
+
+    body {
+      overflow: hidden;
+    }
+
+    .menu-type {
+      width: 200px
+    }
+
+    .buttons i {
+      padding: calc(100vh / 2 - 14px) 0;
+    }
+
+    .container.push {
+      margin-left: 200px;
+    }
+
+    .dropzone {
+      border: 4px dashed #ddd;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding: 21px 13.5px;
+    }
+
+    .dropzone .dz-preview {
+      margin: 0;
+    }
+
+    .icons {
+      width: 100%;
+    }
+
+    .icon {
+      width: 120px;
+      height: 150px;
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+      margin: 10px auto;
+    }
+
+    .icon::after {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-radius: 0 2px;
+      -webkit-transition: all 0.2s linear;
+      transition: all 0.2s linear;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .icon--pdf {
+      background-color: #db4437;
+    }
+
+    .icon--pdf::after {
+      background: -webkit-linear-gradient(45deg, #e78178 50%, #fff 50%);
+      background: linear-gradient(45deg, #e78178 50%, #fff 50%);
+    }
+
+    .icon--pdf i::before {
+      content: '☵';
+    }
+
+    .icon i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      display: block;
+      font-size: 15px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .icon i::before, .icon i::after {
+      display: block;
+      -webkit-transition: all 0.2s linear;
+      transition: all 0.2s linear;
+    }
+
+    .icon i::before {
+      text-align: center;
+      font-size: 12px;
+      opacity: 0;
+      -webkit-transform: translateY(5px);
+      transform: translateY(5px);
+    }
+
+    .icon i::after {
+      content: attr(title);
+      -webkit-transform: translateY(-5px);
+      transform: translateY(-5px);
+    }
+
+    .icon:hover {
+      border-radius: 2px 4px 2px 2px;
+    }
+
+    .icon:hover::after {
+      width: 24px;
+      height: 24px;
+    }
+
+    .icon:hover i::before {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .icon:hover i::after {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    .container.push {
+      margin-left: 0px;
+    }
+
+    #the-container {
+
+      width: 92.5%;
+      height: 95vh;
+      margin: 2.5vh auto;
+    / / background-color: #dce4ec;
+
+      display: flex;
+
+      align-content: center;
+      align-items: center;
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+      -webkit-transition: all 1s linear;
+      transition: all 1s linear;
+
+    }
+
+    #the-canvas {
+      margin: auto;
+    }
+
+    #the-container.lefty {
+      animation-name: example;
+      animation-duration: 3s;
+      -webkit-transition: all 1s linear;
+      transition: all 1s linear;
+      max-width: 70%;
+
+    }
+
+
+  </style>
+
+
+</head>
+
+<body>
+
+<div class="se-pre-con"></div>
+
+<div class="menu-tint menu-trigger menu-type"></div>
+
+<div id="menu-trigger" class="menu-trigger">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="menu-home">
+  <a id="homelink" class="fa fa-home hvr-pulse" aria-hidden="true"></a>
+</div>
+<div class="menu menu-type" style="overflow: hidden;">
+
+  <div class="col-xs-10 col-md-11" id="scroller" style="padding: 0 5px; overflow: auto">
+
+    <div class="icons">
+
+      <form action="/uploads" class="dropzone" id="my-awesome-dropzone" style="width:90%; height: 170px; margin: 10px">
+      </form>
+
+    </div>
+
+    <div class="icons" id="forDocument">
+
+    </div>
+
+  </div>
+
+  <div class="col-xs-2 col-md-1 text-center" style="padding: 0; color: #FFFFFF">
+    <div class="col-xs-12 col-md-12 rippler rippler-default buttons" id="close"
+         style="height:100vh; padding: 0; background-color: #2A3542">
+      <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+    </div>
+  </div>
+
+</div>
+
+<div class="container">
+
+  <div style="width: 50%;margin: 10px auto; text-align: center; display: none">
+    <button id="prev">Previous</button>
+    <button id="next">Next</button> &nbsp; &nbsp;
+  </div>
+
+  <div id="the-container">
+    <div style="position: absolute; z-index: 9999; color: #dce4ec; top: 2px">
+      <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+    </div>
+    <canvas id="the-canvas"></canvas>
+  </div>
+
+</div>
+
+
+<div class="pullbutton asd">
+  <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true" style="color: #dce4ec"></span>
+</div>
+
+<div class="ui">
+
+  <div class="left-menu">
+    <div action="#" class="search" style="text-align: center; color: #dce4ec; border-bottom: 1px solid #dce4ec; width: 100%">
+      <span style="padding: 5px; display: block">Online Member</span>
+    </div>
+    <menu class="list-friends">
+
+    </menu>
+  </div>
+  <div class="chat">
+    <ul class="messages"></ul>
+    <div class="write-form">
+      <textarea placeholder="Type your message" name="e" id="texxt" rows="2"></textarea>
+      <span class="send">Send</span>
+    </div>
+  </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+
+<script type='text/javascript'>
+  $(window).load(function () {
+    // Animate loader off screen
+    $(".se-pre-con").fadeOut("slow");
+  });
+</script>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//npmcdn.com/feathers-client@^2.0.0-pre.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<script src="scripts//pdf.js"></script>
+<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+
+<script src="scripts/jquery.nicescroll.min.js"></script>
+<script src="scripts/rippler.min.js"></script>
+
+<script src="scripts/mousetrap.min.js"></script>
+
+<script src="scripts/authenticated.js"></script>
+<script src="scripts/auth-presentation.js"></script>
+
+<script src="scripts/messenger.js"></script>
+<script src="scripts/recorder.js"></script>
+
+<script src="scripts/chat.js"></script>
+<script src="scripts/projectcharter-menu.js"></script>
+
+<script src="scripts/presentation.js"></script>
+<script src="scripts/DZupload.js"></script>
+
+<script>
+  $(document).keydown(function (event) {
+    if (event.keyCode === 9) {
+      event.preventDefault();
+    }
+  });
+</script>
+
+<script>
+
+  $(document).ready(function () {
+
+    $(".menu").niceScroll("#scroller", {
+      cursorcolor: "#424242",
+      cursorwidth: 0,
+      zindex: -9999,
+      cursoropacitymin: 0,
+      cursoropacitymax: 0,
+      bouncescroll: false,
+    })
+
+    $(".rippler").rippler({
+      effectClass: 'rippler-effect'
+      , effectSize: 0      // Default size (width & height)
+      , addElement: 'div'   // e.g. 'svg'(feature)
+      , duration: 400
+    });
+
+  });
+
+
+</script>
+
+</body>
+</html>

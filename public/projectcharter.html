@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Project Charter</title>
+  <title>Push Menu!</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="stylesheets/rippler.min.css">
+
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="stylesheets/hover-min.css">
+
+  <link rel="stylesheet" href="stylesheets/chat.css">
+
+  <link rel="stylesheet" href="stylesheets/projectcharter-menu.css">
+
+  <link href="stylesheets/project-charter.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="se-pre-con"></div>
+
+<div class="menu-tint menu-trigger menu-type"></div>
+
+<div id="menu-trigger" class="menu-trigger" data-bind="visible:auth()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="menu-home">
+  <a id="homelink" class="fa fa-home hvr-pulse" aria-hidden="true"></a>
+</div>
+<div class="menu menu-type" style="overflow: hidden;">
+  <div class="col-xs-10 col-md-11" id="scroller" style="padding: 0 5px; overflow: auto">
+    <h1>Customize It !</h1>
+    <ul id="accordion" class="accordion">
+      <li>
+        <div class="link">
+          <i class="fa fa-file-text-o"></i>Project Properties
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="form-group" style="width: 80%; padding: 10px; margin: auto">
+              <label for="projectTitle">Project Title :</label>
+              <input type="text" class="form-control" id="projectTitle" placeholder="Project Title"
+                     data-bind="value:projecttitle">
+            </div>
+          </li>
+          <li>
+            <div class="form-group" style="width: 80%; padding: 10px; margin: auto">
+              <label for="pmName">Project Manager Name :</label>
+              <input type="text" class="form-control" id="pmName" placeholder="PM Name" data-bind="value:pmname">
+            </div>
+          </li>
+          <li>
+            <div class="form-group" style="width: 80%; padding: 10px; margin: auto">
+              <label for="projectStart">Project Start :</label>
+              <input type="date" class="form-control" id="projectStart" data-bind="date: startdate">
+            </div>
+          </li>
+          <li>
+            <div class="form-group" style="width: 80%; padding: 10px; margin: auto">
+              <label for="projectFinish">Project Finish :</label>
+              <input type="date" class="form-control" id="projectFinish" data-bind="date: enddate">
+            </div>
+          </li>
+          <li>
+            <div class="form-group" style="width: 80%; padding: 10px; margin: auto">
+              <label for="projectDesc">Project Description :</label>
+              <textarea class="form-control" id="projectDesc" data-bind="value:projectdesc"></textarea>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-code"></i>Product Description
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonPD" type="checkbox" data-bind="checked: showPD"> Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonPDPUB" type="checkbox" data-bind="checked: PDpublic"> Public
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="form-group" style="width: 80%; padding: 10px; margin: auto">
+              <label for="productDesc">Product Description :</label>
+              <textarea class="form-control" id="productDesc" data-bind="value: productdesc"></textarea>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-user"></i>Stake Holders
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonSH" type="checkbox" data-bind="checked: showSH">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonSHPUB" type="checkbox" data-bind="checked: SHpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus add-list" aria-hidden="true"
+                     data-bind="click: addSH"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: SH">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Name" style="width: 100%;"
+                       data-bind="value: SHname">
+              </div>
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Role" style="width: 100%;"
+                       data-bind="value: SHrole">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeSH"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-users"></i>Team Members
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonMBR" type="checkbox" data-bind="checked: showMBR">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonMBRPUB" type="checkbox" data-bind="checked: MBRpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus" aria-hidden="true"
+                     data-bind="click: addMBR"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: MBR">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Name" style="width: 100%;"
+                       data-bind="value: MBRname">
+              </div>
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Role" style="width: 100%;"
+                       data-bind="value: MBRrole">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeMBR"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-gift"></i>Deliverable
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonDLV" type="checkbox" data-bind="checked: showDLV">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonDLVPUB" type="checkbox" data-bind="checked: DLVpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus" aria-hidden="true"
+                     data-bind="click: addDLV"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: DLV">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Name" style="width: 100%;"
+                       data-bind="value: DLVname">
+              </div>
+              <div style="width: 45%; margin: auto;">
+                <input type="date" class="form-control" placeholder="Role" style="width: 100%;"
+                       data-bind="date: DLVdue">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeDLV"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-search"></i>Measurable Project Objective
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonOBJ" type="checkbox" data-bind="checked: showOBJ">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonOBJPUB" type="checkbox" data-bind="checked: OBJpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus" aria-hidden="true"
+                     data-bind="click: addOBJ"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: OBJ">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Objective" style="width: 100%;"
+                       data-bind="value: OBJvalue">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeOBJ"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-check"></i>Project Approval Requirment
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonREQ" type="checkbox" data-bind="checked: showREQ">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonREQPUB" type="checkbox" data-bind="checked: REQpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus" aria-hidden="true"
+                     data-bind="click: addREQ"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: REQ">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Objective" style="width: 100%;"
+                       data-bind="value: REQvalue">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeREQ"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-fire"></i>Risk Known
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonRSK" type="checkbox" data-bind="checked: showRSK">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonRSKPUB" type="checkbox" data-bind="checked: RSKpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus" aria-hidden="true"
+                     data-bind="click: addRSK"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: RSK">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 90%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Objective" style="width: 100%;"
+                       data-bind="value: RSKvalue">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeRSK"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="">
+        <div class="link">
+          <i class="fa fa-money"></i>Sponsor
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <ul class="submenu">
+          <li>
+            <div class="checkbox-inline">
+              <label class="label-menu-enable-add">
+                <input id="buttonSGN" type="checkbox" data-bind="checked: showSGN">Enable
+              </label>
+              <label class="label-menu-enable-add">
+                <input id="buttonSGNPUB" type="checkbox" data-bind="checked: SGNpublic"> Public
+              </label>
+            </div>
+            <div class="checkbox-inline pull-right">
+              <label class="pull-right label-menu-enable-add fa fa-plus" aria-hidden="true"
+                     data-bind="click: addSGN"></label>
+            </div>
+          </li>
+          <li data-bind="foreach: SGN">
+            <div class="two-input" style="width: 90%; margin: auto; padding: 10px; ">
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Name" style="width: 100%;"
+                       data-bind="value: SGNname">
+              </div>
+              <div style="width: 45%; margin: auto;">
+                <input type="text" class="form-control" placeholder="Role" style="width: 100%;"
+                       data-bind="value: SGNrole">
+              </div>
+              <div>
+                <span class="fa fa-times" aria-hidden="true" data-bind="click: $root.removeSGN"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="col-xs-2 col-md-1 text-center" style="padding: 0; color: #FFFFFF">
+    <div class="col-xs-12 col-md-12 rippler rippler-default buttons" id="close"
+         style="height:50vh; padding: 0; background-color: #2A3542">
+      <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+    </div>
+    <div class="col-xs-12 col-md-12 rippler rippler-default buttons" onclick="asdes()"
+         style="height:50vh; padding: 0; background-color: #2ecc71">
+      <i class="fa fa-print" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div id="paper" class="a4">
+
+    <div class="centering">
+      <h3>Project Charter</h3>
+    </div>
+
+    <div id="margin">
+
+      <div id="row1">
+        <h5>
+          Project Title : <span data-bind="text: projecttitle"></span>
+        </h5>
+
+        <h5>
+          Project Manager : <span data-bind="text: pmname"></span>
+        </h5>
+      </div>
+
+      <div id="row2">
+        <h5>
+          Start Date :
+          <span data-bind="date: startdate, dateFormat: 'MMMM Do YYYY'"></span>
+        </h5>
+        <h5>
+          Finish Date :
+          <span data-bind="date: enddate, dateFormat: 'MMMM Do YYYY'"></span>
+        </h5>
+      </div>
+
+      <div id="row3">
+        <h5>
+          Project Description
+        </h5>
+        <p data-bind="text:projectdesc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+          Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+          of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+          leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+          release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+          like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      </div>
+
+      <div id="row4" data-bind="visible: show(showPD(),PDpublic())">
+        <h5>
+          Product Description
+        </h5>
+        <p data-bind="text: productdesc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+          galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but
+          also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+          with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+          software like Aldus PageMaker including versions of Lorem Ipsum </p>
+      </div>
+
+      <div class="row5-7" data-bind="visible: show(showSH(),SHpublic())">
+        <div class="tableLeft">
+          <h5>
+            Stakeholders
+          </h5>
+        </div>
+        <div class="tableRight">
+
+          <div class="tableHeader">
+            <h5>Stakeholder Name</h5>
+            <h5>Stakeholder Requirment</h5>
+          </div>
+
+          <div class="tableRow" data-bind="foreach: SH">
+            <div class="tableData">
+              <p data-bind="text: SHname"></p>
+              <p data-bind="text: SHrole"></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row5-7" data-bind="visible: show(showMBR(),MBRpublic())">
+        <div class="tableLeft">
+          <h5>
+            Resources
+          </h5>
+        </div>
+        <div class="tableRight">
+          <div class="tableHeader">
+            <h5>Resource Name</h5>
+            <h5>Resource Role</h5>
+          </div>
+          <div class="tableRow" data-bind="foreach: MBR">
+            <div class="tableData">
+              <p data-bind="text: MBRname"></p>
+              <p data-bind="text: MBRrole"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row5-7" data-bind="visible: show(showDLV(),DLVpublic())">
+        <div class="tableLeft">
+          <h5>
+            Deliverable
+          </h5>
+        </div>
+        <div class="tableRight">
+          <div class="tableHeader">
+            <h5>Deliverable</h5>
+            <h5>Due Date</h5>
+          </div>
+          <div class="tableRow" data-bind="foreach: DLV">
+            <div class="tableData">
+              <p data-bind="text: DLVname"></p>
+              <p data-bind="date: DLVdue, dateFormat: 'MMMM Do YYYY'"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row8-10" data-bind="visible: show(showOBJ(),OBJpublic())">
+        <div class="tableLeft">
+          <h5>Measurable Project Objectives</h5>
+        </div>
+
+        <div class="tableRight" data-bind="foreach: OBJ">
+          <div class="tableData">
+            <p data-bind="text: OBJvalue"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row8-10" data-bind="visible: show(showREQ(),REQpublic())">
+
+        <div class="tableLeft">
+          <h5>Project Approval Requirements</h5>
+        </div>
+
+        <div class="tableRight" data-bind="foreach: REQ">
+          <div class="tableData">
+            <p data-bind="text: REQvalue"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row8-10" data-bind="visible: show(showRSK(),RSKpublic())">
+
+        <div class="tableLeft">
+          <h5>Risk known at this time</h5>
+        </div>
+
+        <div class="tableRight" data-bind="foreach: RSK">
+          <div class="tableData">
+            <p data-bind="text: RSKvalue"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row11" data-bind="visible: show(showSGN(),SGNpublic())">
+        <div class="tableLeft">
+          <h5>
+            Sponsor Approval
+          </h5>
+        </div>
+        <div class="tableRight">
+          <div class="tableHeader">
+            <h5>Sponsor Name</h5>
+            <h5>Sponsor Role</h5>
+            <h5>Sponsor Signatures</h5>
+          </div>
+          <div class="tableRow" data-bind="foreach: SGN">
+            <div class="tableData">
+
+              <div class="tableSeparate">
+                <p data-bind="text: SGNname"></p>
+              </div>
+              <div class="tableSeparate tableBL">
+                <p data-bind="text: SGNrole"></p>
+              </div>
+              <div class="tableSeparate tableBL">
+                <p></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="pullbutton asd">
+  <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>
+</div>
+<div class="ui">
+  <div class="left-menu">
+    <form action="#" class="search">
+      <input placeholder="search..." type="search" name="" id="">
+      <input type="submit" value="&#xf002;">
+    </form>
+    <menu class="list-friends">
+
+    </menu>
+  </div>
+  <div class="chat">
+    <ul class="messages"></ul>
+    <div class="write-form">
+      <textarea placeholder="Type your message" name="e" id="texxt" rows="2"></textarea>
+      <span class="send">Send</span>
+    </div>
+  </div>
+</div>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+
+<script type='text/javascript'>
+  $(window).load(function () {
+    // Animate loader off screen
+    $(".se-pre-con").fadeOut("slow");
+  });
+</script>
+
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-2.2.1.js"></script>
+
+<script src="scripts/knockout-date-bindings.js"></script>
+<script src="scripts/knockout.mapping-latest.debug.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+<script src="//npmcdn.com/feathers-client@^2.0.0-pre.2/dist/feathers.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<script src="scripts/jquery.nicescroll.min.js"></script>
+<script src="scripts/rippler.min.js"></script>
+
+<script src="scripts/printThis.js"></script>
+
+<script src="scripts/mousetrap.min.js"></script>
+
+<script src="scripts/authenticated.js"></script>
+<script src="scripts/auth-charter.js"></script>
+
+<script src="scripts/messenger.js"></script>
+<script src="scripts/recorder.js"></script>
+
+<script src="scripts/knockout.live.plugin.js"></script>
+
+<script src="scripts/binding.js"></script>
+
+<script src="scripts/chat.js"></script>
+
+<script src="scripts/projectcharter.js" type="text/javascript"></script>
+<script src="scripts/projectcharter-menu.js"></script>
+
+<script>
+
+  function asdes() {
+    $('#margin').printThis();
+  }
+
+</script>
+
+
+</body>
+</html>
