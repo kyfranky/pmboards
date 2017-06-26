@@ -86,8 +86,7 @@
 
 <script>
   // Set up socket.io
-  const host = 'http://localhost:3030';
-  let socket = io(host);
+  let socket = io();
 
   // Set up Feathers client side
   let app = feathers()
