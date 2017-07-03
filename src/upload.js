@@ -21,8 +21,8 @@ module.exports = function () {
   console.log("ini secret : ",scrtkey);
 
   const s3 = new AWS.S3({
-    accessKeyId: 'AKIAJZ2WTZOO3GRGPH2A',
-    secretAccessKey: '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'
+    accessKeyId: accskey,
+    secretAccessKey: scrtkey
   });
 
   const blobStore = S3BlobStore({
