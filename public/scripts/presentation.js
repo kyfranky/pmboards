@@ -19,9 +19,7 @@ socket.on('updateDocs', function (data) {
   app.service('uploads').get(data.Documents)
     .then(result => {
       const downloadUrl = result.uri;
-
       console.log('Stored blob with id', result.id);
-
       showing(downloadUrl, data.Page);
     }).catch(err => {
     console.error(err);
