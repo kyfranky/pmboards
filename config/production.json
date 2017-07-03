@@ -1,5 +1,7 @@
 {
   "host": "final_PMboard-app.feathersjs.com",
   "port": "PORT",
-  "database_url": "DATABASE_URL"
+  "database_url": "DATABASE_URL",
+  "AWS_access_key_id":"AWS_ACCESS_KEY_ID",
+  "AWS_secret_key":"AWS_SECRET_KEY"
 }
