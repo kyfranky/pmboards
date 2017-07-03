@@ -32,5 +32,6 @@
     }
   },
   // "postgres": "postgres://ptoqmoudwmwzfi:d7c03ea6cf64fc9824cbf0f431dc7ac6294ece3f26a101430b5ff541c59cb466@ec2-23-21-246-11.compute-1.amazonaws.com:5432/dcqppipdajufh6"
-  "postgres": "postgres://postgres:@localhost:5432/pmboard"
+  // "postgres": "postgres://postgres:@localhost:5432/pmboard"
+  "postgres": process.env.DATABASE_URL
 }
