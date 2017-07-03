@@ -48,7 +48,9 @@ function getData(data) {
     .then(result => {
       const downloadUrl = result.uri;
       showing(downloadUrl, 1)
-    })
+    }).catch(err => {
+    console.error(err);
+  });
 
 }
 
