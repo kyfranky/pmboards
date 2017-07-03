@@ -6,13 +6,13 @@ const dauria = require('dauria');
 const BlobService = require('feathers-blob');
 const S3BlobStore = require('s3-blob-store');
 
-const port = app.get('database_url');
-
 module.exports = function () {
 
   console.log(port);
 
   const app = this;
+
+  const port = app.get('database_url');
 
   const s3 = new AWS.S3({
     accessKeyId: 'AKIAJZ2WTZOO3GRGPH2A',
