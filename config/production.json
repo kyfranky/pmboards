@@ -3,5 +3,6 @@
   "port": "PORT",
   "database_url": "DATABASE_URL",
   "AWS_access_key_id":"AWS_ACCESS_KEY_ID",
-  "AWS_secret_key":"AWS_SECRET_KEY"
+  "AWS_secret_key":"AWS_SECRET_KEY",
+  "postgres": "DATABASE_URL"
 }
