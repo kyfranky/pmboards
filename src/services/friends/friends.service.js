@@ -26,4 +26,5 @@ module.exports = function () {
   if (service.filter) {
     service.filter(filters);
   }
+
 };

@@ -9,16 +9,15 @@ const S3BlobStore = require('s3-blob-store');
 module.exports = function () {
 
 
-
   const app = this;
 
   const port = app.get('database_url');
   const accskey = app.get('AWS_access_key_id');
   const scrtkey = app.get('AWS_secret_key');
 
-  console.log("ini dbase : ",port);
-  console.log("ini access : ",accskey);
-  console.log("ini secret : ",scrtkey);
+  console.log("ini dbase : ", port);
+  console.log("ini access : ", accskey);
+  console.log("ini secret : ", scrtkey);
 
   const s3 = new AWS.S3({
     accessKeyId: accskey,
@@ -50,15 +49,11 @@ module.exports = function () {
 
   app.service('/uploads').before({
     all: [],
-    create: [authenticate('jwt'),check, makePublic],
+    create: [authenticate('jwt'), check, makePublic]
   });
 
   app.service('/uploads').after({
     create: [HooktoDB]
-  });
-
-  app.service('/uploads').error({
-    all: [showerror]
   });
 
   app.service('/uploads').create(blob).then(function (result) {
