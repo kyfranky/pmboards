@@ -1,4 +1,5 @@
 {
   "host": "final_PMboard-app.feathersjs.com",
-  "port": "PORT"
+  "port": "PORT",
+  "database_url": "DATABASE_URL"
 }
