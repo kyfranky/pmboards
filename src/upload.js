@@ -8,11 +8,13 @@ const S3BlobStore = require('s3-blob-store');
 
 module.exports = function () {
 
-  console.log(port);
+
 
   const app = this;
 
   const port = app.get('database_url');
+
+  console.log(port);
 
   const s3 = new AWS.S3({
     accessKeyId: 'AKIAJZ2WTZOO3GRGPH2A',
