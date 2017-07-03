@@ -57,6 +57,10 @@ module.exports = function () {
     create: [HooktoDB]
   });
 
+  app.service('/uploads').error({
+    all: [showerror]
+  });
+
   app.service('/uploads').create(blob).then(function (result) {
     console.log('Stored blob with id', result.id);
   }).catch(err => {
@@ -77,8 +81,11 @@ module.exports = function () {
     hook.params.s3 = {ACL: 'public-read'};
   }
 
+  function showerror(hook) {
+    hook.params.s3 = {ACL: 'public-read'};
+  }
+
   function HooktoDB(hook) {
-    console.log(hook.params);
     if (hook.params.file) {
       app.service('documents').create({
         FileName: hook.params.file.originalname,
