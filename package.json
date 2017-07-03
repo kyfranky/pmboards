@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "async": "^2.4.0",
+    "aws-sdk": "^2.80.0",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
     "cors": "^2.8.3",
@@ -36,7 +37,7 @@
     "feathers-authentication-hooks": "^0.1.2",
     "feathers-authentication-jwt": "^0.3.1",
     "feathers-authentication-local": "^0.3.4",
-    "feathers-blob": "^1.2.0",
+    "feathers-blob": "^1.3.1",
     "feathers-configuration": "^0.4.1",
     "feathers-errors": "^2.7.1",
     "feathers-hooks": "^2.0.1",
@@ -48,6 +49,7 @@
     "helmet": "^3.6.0",
     "multer": "^1.3.0",
     "pg": "^6.1.5",
+    "s3-blob-store": "^2.0.1",
     "sequelize": "^3.30.4",
     "serve-favicon": "^2.4.2",
     "winston": "^2.3.1"

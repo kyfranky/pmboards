@@ -263,7 +263,7 @@
               $(e).hide();
             });
 
-            console.log(err.errors[0].path);
+            console.log(err);
 
             if (err.errors[0].path === 'email') {
               $('.mail').toggleClass("danger", true);
