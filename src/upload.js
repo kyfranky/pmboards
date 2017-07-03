@@ -43,7 +43,6 @@ module.exports = function () {
     function (req, res, next) {
       req.feathers.file = req.file;
       req.feathers.roomId = req.body.roomId;
-      console.log(req.body);
       next();
     },
     blobService

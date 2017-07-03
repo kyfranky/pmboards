@@ -1,4 +1,3 @@
-
 var TempStore;
 var pageNum = 1;
 
@@ -20,12 +19,17 @@ socket.on('updateDocs', function (data) {
   app.service('uploads').get(data.Documents)
     .then(result => {
       const downloadUrl = result.uri;
-      showing(downloadUrl,data.Page)
-    })
+
+      console.log('Stored blob with id', result.id);
+
+      showing(downloadUrl, data.Page);
+    }).catch(err => {
+    console.error(err);
+  });
 
 });
 
-socket.on('updatePage',function (data) {
+socket.on('updatePage', function (data) {
 
   console.log(data);
 
@@ -38,12 +42,12 @@ function getData(data) {
 
   const docId = data.getAttribute("data-documentId");
 
-  socket.emit('updateDocs',{documentId:docId});
+  socket.emit('updateDocs', {documentId: docId});
 
   app.service('uploads').get(docId)
     .then(result => {
       const downloadUrl = result.uri;
-      showing(downloadUrl,1)
+      showing(downloadUrl, 1)
     })
 
 }
@@ -137,7 +141,7 @@ $(window).keydown(function (e) {
       return false;
     }
     else {
-      socket.emit('updatePage', {page: pageNum+1});
+      socket.emit('updatePage', {page: pageNum + 1});
       onNextPage();
     }
 
@@ -165,7 +169,7 @@ $(window).keydown(function (e) {
 
 window.addEventListener('resize', drawStuff, false);
 
-function showing(data,page) {
+function showing(data, page) {
 
   if (TempStore != data) {
     reset();
