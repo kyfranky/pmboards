@@ -610,7 +610,7 @@ anychart.onDocumentReady(function () {
 
               }
               else {
-                if (updateField === "actualPeriods" || updateField === "baselineperiods" || updateField === "type") return;
+                if (updateField === "actualPeriods" || updateField === "basePeriods" || updateField === "type") return;
 
 
                 console.log(updateField);
