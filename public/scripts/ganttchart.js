@@ -652,6 +652,7 @@ anychart.onDocumentReady(function () {
 
             // if(updateItem.get(data.field) )
             console.log(updateItem.get(data.field), data.values);
+            console.log(updateItem.get(data.field) === data.values);
 
             updateData(data.itemid, data.field, data.values)
 
