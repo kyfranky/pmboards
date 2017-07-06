@@ -23,7 +23,7 @@ $(document).ready(function () {
                 else {
                   rightMessages(messages[i], user.firstName);
                 }
-              }, i * 50);
+              }, i * 100);
             })(i);
           }
         })
