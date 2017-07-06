@@ -648,7 +648,7 @@ anychart.onDocumentReady(function () {
 
           socket.on('setData', function (data) {
 
-            var updateItem = treeData.search("id", updateItemID);
+            var updateItem = treeData.search("id", data.itemid);
 
             // if(updateItem.get(data.field) )
             console.log(updateItem.get(data.field), data.values);
