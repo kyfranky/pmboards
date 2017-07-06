@@ -1,4 +1,4 @@
-$(window).load(function () {
+$(document).ready(function () {
   app.authenticate()
     .then(() => {
       app.service('messages').find({
@@ -9,8 +9,8 @@ $(window).load(function () {
       })
         .then(page => {
           const messages = page.data.reverse();
-
           const user = app.get('user');
+          
           for (let i = 0; i < messages.length; i++) {
             (function (i) {
               setTimeout(function () {
@@ -23,6 +23,7 @@ $(window).load(function () {
               }, i * 50);
             })(i);
           }
+
         })
         .catch(function (error) {
           console.log(error);
