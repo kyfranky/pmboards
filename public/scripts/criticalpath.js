@@ -220,12 +220,17 @@ function calcCPM(data, lastData) {
   });
 
   const path = table.getCriticalPath(lastData);
+
+  console.log(data)
+
   const result = mapit(path);
 
   return result;
 
   function mapit(data) {
     let temp = [];
+    console.log(data)
+    if(!data) return temp
     temp.push(data);
     if (data.predecessors.length !== 0) {
       data.predecessors.forEach(function (a) {

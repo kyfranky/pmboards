@@ -581,11 +581,10 @@ anychart.onDocumentReady(function () {
                     chart.xScale().maximum(moment(be).add(30, 'days'));
                   }
 
-                  console.log(ae, as);
+                  // console.log(ae, as);
 
-                  console.log(moment(ae, "YYYY-MM-DD").diff(moment(as, "YYYY-MM-DD"), 'days'));
-
-                  updateItem.set("periods", moment(ae, "YYYY-MM-DD").diff(moment(as, "YYYY-MM-DD"), 'days'))
+                  updateItem.set("basePeriods", moment(be, "YYYY-MM-DD").diff(moment(bs, "YYYY-MM-DD"), 'days'))
+                  updateItem.set("actualPeriods", moment(ae, "YYYY-MM-DD").diff(moment(as, "YYYY-MM-DD"), 'days'))
 
                 }
                 else {
@@ -708,8 +707,8 @@ anychart.onDocumentReady(function () {
 
               let days = moment(End, 'YYYY-MM-DD').diff(moment(Start, 'YYYY-MM-DD'), 'day');
 
-              if (item.get("periods") != days) {
-                item.set("periods", days)
+              if (item.get("actualPeriods") != days) {
+                item.set("actualPeriods", days)
               }
 
             }
@@ -765,8 +764,8 @@ anychart.onDocumentReady(function () {
 
               let days = moment(End, 'YYYY-MM-DD').diff(moment(Start, 'YYYY-MM-DD'), 'day');
 
-              if (item.get("periods") != days) {
-                item.set("periods", days)
+              if (item.get("basePeriods") != days) {
+                item.set("basePeriods", days)
               }
 
             }
