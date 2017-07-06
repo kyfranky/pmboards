@@ -650,10 +650,12 @@ anychart.onDocumentReady(function () {
 
             var updateItem = treeData.search("id", data.itemid);
 
-            // if(updateItem.get(data.field) )
-            console.log(updateItem.get(data.field), data.values);
-            console.log(updateItem.get(data.field) === data.values);
+            //console.log(updateItem.get(data.field), data.values);
+            //console.log(updateItem.get(data.field) === data.values);
 
+            if(updateItem.get(data.field) === data.values){
+              return;
+            }
             updateData(data.itemid, data.field, data.values)
 
           });
