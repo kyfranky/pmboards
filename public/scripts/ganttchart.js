@@ -547,8 +547,6 @@ anychart.onDocumentReady(function () {
 
               if (updateField === "actualStart" || updateField === "actualEnd" || updateField === "baselineStart" || updateField === "baselineEnd") {
 
-                console.log(moment(updateValue, ['YYYY-MM-DD HH:mm']).isValid());
-
                 if (updateValue !== moment(updateValue).format('YYYY-MM-DD HH:mm')) {
                   let a = moment(updateValue).format("YYYY-MM-DD");
                   a = moment(a).format("YYYY-MM-DD HH:mm");

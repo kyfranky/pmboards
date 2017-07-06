@@ -182,7 +182,7 @@ function addGanttChart(hook) {
       'actualStart': hook.data.startDate,
       'actualEnd': hook.data.endDate,
       'progressValue': 0,
-      'parent':'1',
+      'parent':'0',
       'connector': []
     },
     {
@@ -195,7 +195,7 @@ function addGanttChart(hook) {
       'actualStart': hook.data.startDate,
       'actualEnd': hook.data.endDate,
       'progressValue': 0,
-      'parent':'1',
+      'parent':'0',
       'connector': []
     },
     {
@@ -208,7 +208,7 @@ function addGanttChart(hook) {
       'actualStart': hook.data.startDate,
       'actualEnd': hook.data.endDate,
       'progressValue': 0,
-      'parent':'1',
+      'parent':'0',
       'connector': []
     },
     {
@@ -221,7 +221,7 @@ function addGanttChart(hook) {
       'actualStart': hook.data.startDate,
       'actualEnd': hook.data.endDate,
       'progressValue': 0,
-      'parent':'1',
+      'parent':'0',
       'connector': []
     },
     {
@@ -234,7 +234,7 @@ function addGanttChart(hook) {
       'actualStart': hook.data.startDate,
       'actualEnd': hook.data.endDate,
       'progressValue': 0,
-      'parent':'1',
+      'parent':'0',
       'connector': []
     }
   ];
