@@ -551,18 +551,11 @@ anychart.onDocumentReady(function () {
 
                 if (updateValue !== moment(updateValue).format('YYYY-MM-DD HH:mm')) {
                   let a = moment(updateValue).format("YYYY-MM-DD");
-                  console.log(a)
-
                   a = moment(a).format("YYYY-MM-DD HH:mm");
-                  console.log(a)
-
                   a = moment(a).set('hour', 19).format("YYYY-MM-DD HH:mm");
-
-                  console.log(a)
-
                   updateItem.set(updateField, a);
                   saveGantt();
-                  //socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: a});
+                  socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: a});
                   createLog(updateField, updateItem.Ga.name, moment(a).format("YYYY-MM-DD"), 2);
                   console.log("Kirim");
                   return;
