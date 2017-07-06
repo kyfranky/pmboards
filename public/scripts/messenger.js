@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  let user;
-  let messages;
   app.authenticate()
     .then(() => {
       app.service('messages').find({
@@ -10,22 +8,22 @@ $(document).ready(function () {
         }
       })
         .then(page => {
-          messages = page.data.reverse();
-          user = app.get('user');
-        })
-        .then(() => {
+          const messages = page.data.reverse();
+          const user = app.get('user');
+
           for (let i = 0; i < messages.length; i++) {
             (function (i) {
               setTimeout(function () {
-                if (messages[i].senderId !== user.id) {
+                if (messages[i].senderId !== app.get('user').id) {
                   leftMessages(messages[i]);
                 }
                 else {
-                  rightMessages(messages[i], user.firstName);
+                  rightMessages(messages[i], app.get('user').firstName);
                 }
-              }, i * 100);
+              }, i * 50);
             })(i);
           }
+
         })
         .catch(function (error) {
           console.log(error);
