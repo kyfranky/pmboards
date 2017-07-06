@@ -544,15 +544,21 @@ anychart.onDocumentReady(function () {
 
             }
             else {
+
               if (updateField === "actualStart" || updateField === "actualEnd" || updateField === "baselineStart" || updateField === "baselineEnd") {
 
-                  console.log(moment(updateValue, ['YYYY-MM-DD HH:mm']).isValid());
+                console.log(moment(updateValue, ['YYYY-MM-DD HH:mm']).isValid());
 
                 if (updateValue !== moment(updateValue).format('YYYY-MM-DD HH:mm')) {
-
                   let a = moment(updateValue).format("YYYY-MM-DD");
+                  console.log(a)
+
+                  a = moment(a).format("YYYY-MM-DD HH:mm");
+                  console.log(a)
 
                   a = moment(a).set('hour', 19).format("YYYY-MM-DD HH:mm");
+
+                  console.log(a)
 
                   updateItem.set(updateField, a);
                   saveGantt();
@@ -560,7 +566,6 @@ anychart.onDocumentReady(function () {
                   createLog(updateField, updateItem.Ga.name, moment(a).format("YYYY-MM-DD"), 2);
                   console.log("Kirim");
                   return;
-
                 }
 
                 if (updateItem.get("id") === "0") {
@@ -587,16 +592,21 @@ anychart.onDocumentReady(function () {
 
                   // console.log(ae, as);
 
-                  updateItem.set("basePeriods", moment(be, "YYYY-MM-DD").diff(moment(bs, "YYYY-MM-DD"), 'days'))
-                  updateItem.set("actualPeriods", moment(ae, "YYYY-MM-DD").diff(moment(as, "YYYY-MM-DD"), 'days'))
+                  updateItem.set("basePeriods", moment(be, "YYYY-MM-DD").diff(moment(bs, "YYYY-MM-DD"), 'days'));
+                  updateItem.set("actualPeriods", moment(ae, "YYYY-MM-DD").diff(moment(as, "YYYY-MM-DD"), 'days'));
 
                 }
 
                 else {
+
                   saveGantt();
+
                   console.log(updateField, updateValue);
+
                   socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
+
                   console.log("GUA KIRIM")
+
                 }
 
                 if (updateItem.getParent() == null) {
