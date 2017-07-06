@@ -20,7 +20,7 @@ $(document).ready(function () {
                 else {
                   rightMessages(messages[i], app.get('user').firstName);
                 }
-              }, i * 100);
+              }, i * 500);
             })(i);
           }
 
@@ -44,7 +44,11 @@ socket.on('ListMe', function (data) {
 
   if (filter.length == 0) {
 
-    socket.emit('ListMe', {id:app.get('user').id, name:(app.get('user').firstName+" "+app.get('user').lastName), profession:app.get('user').profession});
+    socket.emit('ListMe', {
+      id: app.get('user').id,
+      name: (app.get('user').firstName + " " + app.get('user').lastName),
+      profession: app.get('user').profession
+    });
 
     friendsList.push(data);
 
@@ -72,9 +76,9 @@ socket.on('unListMe', function (data) {
     return item.socketId !== data.socketId
   });
 
-  if(!filter[0]) return
+  if (!filter[0]) return
 
-  const id = "LF "+ filter[0].id;
+  const id = "LF " + filter[0].id;
   document.getElementById(id).remove();
 });
 
