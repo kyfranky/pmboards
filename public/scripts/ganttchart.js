@@ -87,33 +87,39 @@ anychart.onDocumentReady(function () {
             .width(500);
 
           dataGrid.column(4)
+            .title('Planned Periods')
+            .setColumnFormat('basePeriods', 'integer')
+            .cellTextSettings().hAlign("center");
+
+          dataGrid.column(5)
             .title('Actual Start')
             .setColumnFormat('actualStart', 'dateIso8601')
             .cellTextSettings().hAlign("center");
 
-          dataGrid.column(5)
+          dataGrid.column(6)
             .title('Actual End')
             .setColumnFormat('actualEnd', 'dateIso8601')
             .cellTextSettings().hAlign("center")
             .width(500);
 
+          dataGrid.column(7)
+            .title('Actual Periods')
+            .setColumnFormat('actualPeriods', 'integer')
+            .cellTextSettings().hAlign("center");
+
           dataGrid.column(2).width(150);
           dataGrid.column(3).width(150);
           dataGrid.column(4).width(150);
           dataGrid.column(5).width(150);
+          dataGrid.column(6).width(150);
+          dataGrid.column(7).width(150);
 
-          dataGrid.column(6)
-            .title('Durations')
-            .setColumnFormat('periods', 'integer')
-            .cellTextSettings().hAlign("center");
-
-          dataGrid.column(7)
+          dataGrid.column(8)
             .title('Type')
             .setColumnFormat('type', 'text')
             .cellTextSettings().hAlign("center");
 
-          dataGrid.column(7).enabled(false);
-
+          dataGrid.column(8).enabled(false);
 
           // enable Gantt toolbar
           var toolbar = anychart.ui.ganttToolbar();
@@ -129,21 +135,22 @@ anychart.onDocumentReady(function () {
           var tooltipDG = dataGrid.tooltip();
 
           tooltipTL.format(function () {
-            return "Planned Start : " + moment(this.item.La.baselineStart).format('YYYY-MMMM-DD') + "\n" +
-              "Planned End   : " + moment(this.item.La.baselineEnd).format('YYYY-MMMM-DD') + "\n" +
-              "Actual Start  : " + moment(this.item.La.actualStart).format('YYYY-MMMM-DD') + "\n" +
-              "Actual End    : " + moment(this.item.La.actualEnd).format('YYYY-MMMM-DD') + "\n" +
-              "Progress  : " + this.item.La.progressValue + "\n" +
-              "Durations    : " + this.item.La.periods + " Days"
+            return "Planned Start : " + moment(this.item.get("baselineStart")).format('YYYY-MMMM-DD') + "\n" +
+              "Planned End   : " + moment(this.item.get("baselineEnd")).format('YYYY-MMMM-DD') + "\n" +
+              "Planned Durations    : " + this.item.get("basePeriods") + " Days" + "\n" +
+              "Actual Start  : " + moment(this.item.get("actualStart")).format('YYYY-MMMM-DD') + "\n" +
+              "Actual End    : " + moment(this.item.get("actualEnd")).format('YYYY-MMMM-DD') + "\n" +
+              "Actual Durations    : " + this.item.get("actualPeriods") + " Days" + "\n" +
+              "Progress  : " + this.item.get("progressValue") + "\n"
           });
 
           tooltipDG.format(function () {
-            return "Planned Start : " + moment(this.item.La.baselineStart).format('YYYY-MMMM-DD') + "\n" +
-              "Planned End   : " + moment(this.item.La.baselineEnd).format('YYYY-MMMM-DD') + "\n" +
-              "Actual Start  : " + moment(this.item.La.actualStart).format('YYYY-MMMM-DD') + "\n" +
-              "Actual End    : " + moment(this.item.La.actualEnd).format('YYYY-MMMM-DD') + "\n" +
-              "Progress  : " + this.item.La.progressValue + "\n" +
-              "Durations    : " + this.item.La.periods + " Days"
+            return "Planned Start : " + moment(this.item.get("baselineStart")).format('YYYY-MMMM-DD') + "\n" +
+              "Planned End   : " + moment(this.item.get("baselineEnd")).format('YYYY-MMMM-DD') + "\n" +
+              "Actual Start  : " + moment(this.item.get("actualStart")).format('YYYY-MMMM-DD') + "\n" +
+              "Actual End    : " + moment(this.item.get("actualEnd")).format('YYYY-MMMM-DD') + "\n" +
+              "Durations    : " + this.item.get("progressValue") + " Days" + "\n" +
+              "Progress  : " + this.item.get("progressValue") + "\n"
           });
 
           tooltipDG.width(200);
@@ -475,7 +482,7 @@ anychart.onDocumentReady(function () {
             let target = e["target"];
             let sourceConnector = source.get("connector");
 
-            let compareData = {connectTo: e["target"].La.id, connectorType: e["connectorType"]};
+            let compareData = {connectTo: e["target"].Ga.id, connectorType: e["connectorType"]};
 
             for (var i = 0; i < sourceConnector.length; i++) {
               if (compareData.connectorType.toLocaleLowerCase() === sourceConnector[i].connectorType.toLocaleLowerCase() &&
@@ -507,12 +514,12 @@ anychart.onDocumentReady(function () {
 
               if (target) {
 
-                let sourceConnector = updateItem.La.connector;
+                let sourceConnector = updateItem.Ga.connector;
 
                 saveGantt();
 
                 socket.emit('sendConnectorUpdate', {
-                  itemid: updateItem.La.id,
+                  itemid: updateItem.Ga.id,
                   field: updateField,
                   values: sourceConnector
                 });
@@ -522,10 +529,10 @@ anychart.onDocumentReady(function () {
                 });
 
                 if (compare.length === 0) {
-                  createLog("Delete " + updateField, updateItem.La.name, target.La.name, 2);
+                  createLog("Delete " + updateField, updateItem.Ga.name, target.Ga.name, 2);
                 }
                 else {
-                  createLog("Create " + updateField, updateItem.La.name, target.La.name, 2);
+                  createLog("Create " + updateField, updateItem.Ga.name, target.Ga.name, 2);
                 }
 
                 console.log("GUA KIRIM");
@@ -544,9 +551,9 @@ anychart.onDocumentReady(function () {
                   a = moment(a).set('hour', 19).format("YYYY-MM-DD HH:mm");
                   updateItem.set(updateField, a);
                   saveGantt();
-                  socket.emit('sendDataUpdate', {itemid: updateItem.La.id, field: updateField, values: a});
+                  socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: a});
 
-                  createLog(updateField, updateItem.La.name, moment(a).format("YYYY-MM-DD"), 2);
+                  createLog(updateField, updateItem.Ga.name, moment(a).format("YYYY-MM-DD"), 2);
 
                   console.log("Kirim");
                   return;
@@ -584,7 +591,7 @@ anychart.onDocumentReady(function () {
                 else {
                   saveGantt();
                   console.log(updateField, updateValue);
-                  socket.emit('sendDataUpdate', {itemid: updateItem.La.id, field: updateField, values: updateValue});
+                  socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
                   console.log("GUA KIRIM")
                 }
 
@@ -608,9 +615,9 @@ anychart.onDocumentReady(function () {
 
                 saveGantt();
 
-                socket.emit('sendDataUpdate', {itemid: updateItem.La.id, field: updateField, values: updateValue});
+                socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
 
-                createLog(updateField, updateItem.La.name, updateValue, 2);
+                createLog(updateField, updateItem.Ga.name, updateValue, 2);
 
                 console.log("GUA KIRIM")
               }
@@ -984,17 +991,105 @@ anychart.onDocumentReady(function () {
             if (data.numChildren() <= 0) return pure;
             let temp = data.getChildren();
             for (let i = 0; i < data.numChildren(); i++) {
-              var parent = temp[i].getParent();
-              var rowData = temp[i].La;
+              let parent = temp[i].getParent();
+              let rowData = temp[i].Ga;
               rowData.id = rowData.id + "";
-              if (parent != null) rowData["parent"] = parent.La.id;
+
+              if (parent != null) rowData["parent"] = parent.Ga.id;
               delete rowData.actual;
               delete rowData.progress;
               delete rowData.milestone;
               pure.push(rowData);
               getDats(temp[i]);
+
             }
             return pure;
+          }
+
+          function cpm() {
+
+            pure = [];
+
+            let GanttData = getDats(treeData);
+            let tempData = [];
+
+            GanttData = GanttData.filter(function (item) {
+              if (item.type === "Task Group") {
+                return false;
+              }
+              return true;
+            });
+
+            GanttData.forEach(function (item) {
+              let dataProcess = {id: item.id + "", duration: item.basePeriods, predecessors: []};
+              //tempData[dataProcess.id] = dataProcess
+              tempData.push(dataProcess);
+            });
+
+            GanttData.forEach(function (item) {
+              if (item.connector.length !== 0) {
+
+                item.connector.forEach(function (connector) {
+
+                  let index = tempData.findIndex(function (item) {
+                    return item.id === connector.connectTo
+                  });
+
+                  if (index) {
+                    tempData[index].predecessors.push(item.id);
+                  }
+
+                });
+              }
+
+            });
+
+            const cpm = [];
+
+            tempData.forEach(function (item) {
+              cpm.push(calcCPM(tempData, item.id))
+            });
+
+            const makeItRed = {"fill": "red"};
+            const redTaskProgress = {"fill": {"color": "black", "opacity": 0.3}};
+
+            let longest = [{'eet': 0}];
+
+            for (var i = 0; i < cpm.length; i++) {
+              if (cpm[i][0].eet > longest[0].eet) {
+                longest = cpm[i];
+              }
+            }
+
+            longest.forEach(function (item) {
+              let data = treeData.search("id", item.id);
+              if (data.get('type') === 'Task') {
+                data.set('baseline', makeItRed);
+                data.set('progress', redTaskProgress);
+              }
+              else if (data.get('type') === 'Milestone') {
+                data.set('milestone', makeItRed);
+              }
+              //treeData.search("id", item.id).set('connector', {'fill': 'red'})
+
+            });
+
+            console.log(longest)
+
+            CPMdata = longest;
+            CPMon = true;
+
+          }
+
+          function cpmoff() {
+            pure = [];
+            CPMon = false;
+            CPMdata.forEach(function (item) {
+              treeData.search("id", item.id).set('baseline', '')
+              treeData.search("id", item.id).set('progress', '')
+              treeData.search("id", item.id).set('milestone', '')
+            });
+            CPMdata = null;
           }
 
           function saveGantt() {
@@ -1045,80 +1140,6 @@ anychart.onDocumentReady(function () {
                 // console.log(JSON.stringify(data));
                 selectedItem = null;
               });
-          }
-
-          function cpm() {
-
-            pure = [];
-
-            let GanttData = getDats(treeData);
-            let tempData = [];
-
-            GanttData = GanttData.filter(function (item) {
-              if (item.type === "Task Group") {
-                return false;
-              }
-              return true;
-            });
-
-            GanttData.forEach(function (item) {
-              let dataProcess = {id: item.id + "", duration: item.periods, predecessors: []};
-              tempData[dataProcess.id] = dataProcess
-            });
-
-            GanttData.forEach(function (item) {
-              if (item.connector.length !== 0) {
-                item.connector.forEach(function (connector) {
-                  if (tempData[connector.connectTo]) {
-                    tempData[connector.connectTo].predecessors.push(item.id);
-                  }
-                });
-              }
-            });
-
-            const cpm = [];
-
-            tempData.forEach(function (item) {
-              cpm.push(calcCPM(tempData, item.id))
-            });
-
-            const makeItRed = {"fill": "red"};
-            const redTaskProgress = {"fill": {"color": "black", "opacity": 0.3}};
-
-            let longest = [{'eet': 0}];
-
-            for (var i = 0; i < cpm.length; i++) {
-              if (cpm[i][0].eet > longest[0].eet) {
-                longest = cpm[i];
-              }
-            }
-
-            longest.forEach(function (item) {
-              let data = treeData.search("id", item.id);
-              if (data.get('type') === 'Task') {
-                data.set('actual', makeItRed);
-                data.set('progress', redTaskProgress);
-              }
-              else if (data.get('type') === 'Milestone') {
-                data.set('milestone', makeItRed);
-              }
-              //treeData.search("id", item.id).set('connector', {'fill': 'red'})
-            });
-
-            CPMdata = longest;
-            CPMon = true;
-
-          }
-
-          function cpmoff() {
-            pure = [];
-            CPMon = false;
-            CPMdata.forEach(function (item) {
-              treeData.search("id", item.id).set('actual', '')
-              treeData.search("id", item.id).set('progress', '')
-              treeData.search("id", item.id).set('milestone', '')
-            });
-            CPMdata = null;
           }
 
           $("#addDat").click(function () {

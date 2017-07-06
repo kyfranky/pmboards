@@ -1,5 +1,7 @@
 function calcCPM(data, lastData) {
 
+  console.log("jalan")
+
   /**
    * Activity Class
    * XE: new Activity({
@@ -216,7 +218,6 @@ function calcCPM(data, lastData) {
   data.forEach(function (item) {
     table.addActivity(new Activity(item));
   });
-
 
   const path = table.getCriticalPath(lastData);
   const result = mapit(path);

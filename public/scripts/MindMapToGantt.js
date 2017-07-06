@@ -137,9 +137,13 @@ app.authenticate()
 
           const frst = respond.GanttChartData;
 
+          console.log(frst)
+
           const mappedTasks = $.map(respond.GanttChartData, function (item) {
             return new Gantt(item)
           });
+
+          console.log(mappedTasks)
 
           self.datas(mappedTasks);
 
@@ -337,7 +341,7 @@ app.authenticate()
                 return item.id == parent
               });
 
-              console.log(parentData)
+              //console.log(parentData)
 
               createLog('Add Task', parentData[0].name, 'Add Task', 2)
             }
@@ -388,18 +392,16 @@ function Gantt(data) {
 
   self.basePeriods = ko.computed(function () {
 
-    if(!self.baselineStart) {
+    if (!self.baselineStart) {
       return 0
     }
 
-
-    let starts, ends;
-
+    let start, end;
     start = moment(self.baselineStart(), 'YYYY-MM-DD HH:mm');
     end = moment(self.baselineEnd(), 'YYYY-MM-DD HH:mm');
     let durationss = end.diff(start, 'days');
 
-    console.log('dur = ',durationss);
+    //console.log('dur = ',durationss);
 
     return durationss;
   });
@@ -464,14 +466,20 @@ function Gantt(data) {
     }
   });
 
+  if (data.connector) {
+    let string = data.connector;
+    if (string.length === 0)return;
+    string.forEach(function (data) {
+      self.connector.push(new Connectors({connectTo: data.connectTo, connectorType: data.connectorType}))
+    });
+  }
+
 }
 
 function syncToDB() {
-
   setTimeout(function (a) {
     viewmodels.save();
   }, 100)
-
 }
 
 function checkGanttData(Id) {
@@ -490,7 +498,10 @@ function checkGanttData(Id) {
           return datas.connectTo() === id;
         })
       }
-    })
+    });
+
+    console.log(data)
+
   });
 
   let oldVal = viewmodels.datas.remove(function (data) {

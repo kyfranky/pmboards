@@ -32,7 +32,6 @@
   <link rel="stylesheet" href="stylesheets/bootstrap-datepicker3.css">
 
 
-
 </head>
 
 <body onload="init()">
@@ -321,18 +320,22 @@
     <div class="form-group" style="width: 90%; margin:10px auto;">
       <label>Planned Date :</label>
       <div class="input-daterange input-group" id="datepickersss">
-        <input type="text" class="input-sm form-control" name="start" data-bind="date: baselineStart, dateFormat: 'YYYY-MM-DD'" disabled />
+        <input type="text" class="input-sm form-control" name="start"
+               data-bind="date: baselineStart, dateFormat: 'YYYY-MM-DD'" disabled/>
         <span class="input-group-addon">to</span>
-        <input type="text" class="input-sm form-control" name="end" data-bind="date: baselineEnd, dateFormat: 'YYYY-MM-DD'" disabled=""/>
+        <input type="text" class="input-sm form-control" name="end"
+               data-bind="date: baselineEnd, dateFormat: 'YYYY-MM-DD'" disabled=""/>
       </div>
     </div>
 
     <div class="form-group" style="width: 90%; margin:10px auto;">
       <label>Actual Date :</label>
       <div class="input-daterange input-group" id="datepickerss">
-        <input type="text" class="input-sm form-control" name="start" data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'" disabled/>
+        <input type="text" class="input-sm form-control" name="start"
+               data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'" disabled/>
         <span class="input-group-addon">to</span>
-        <input type="text" class="input-sm form-control" name="end" data-bind="date: actualEnd, dateFormat: 'YYYY-MM-DD'" disabled=""/>
+        <input type="text" class="input-sm form-control" name="end"
+               data-bind="date: actualEnd, dateFormat: 'YYYY-MM-DD'" disabled=""/>
       </div>
     </div>
 
@@ -355,9 +358,11 @@
       <label>Planned Date :</label>
 
       <div class="input-daterange input-group">
-        <input type="text" class="input-sm form-control" name="start" data-bind="date: baselineStart, dateFormat: 'YYYY-MM-DD'" />
+        <input type="text" class="input-sm form-control" name="start"
+               data-bind="date: baselineStart, dateFormat: 'YYYY-MM-DD'"/>
         <span class="input-group-addon">to</span>
-        <input type="text" class="input-sm form-control" name="end" data-bind="date: baselineEnd, dateFormat: 'YYYY-MM-DD'"/>
+        <input type="text" class="input-sm form-control" name="end"
+               data-bind="date: baselineEnd, dateFormat: 'YYYY-MM-DD'"/>
       </div>
 
     </div>
@@ -372,9 +377,11 @@
       <label>Actual Date :</label>
 
       <div class="input-daterange input-group">
-        <input type="text" class="input-sm form-control" name="start" data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'" />
+        <input type="text" class="input-sm form-control" name="start"
+               data-bind="date: actualStart, dateFormat: 'YYYY-MM-DD'"/>
         <span class="input-group-addon">to</span>
-        <input type="text" class="input-sm form-control" name="end" data-bind="date: actualEnd, dateFormat: 'YYYY-MM-DD'"/>
+        <input type="text" class="input-sm form-control" name="end"
+               data-bind="date: actualEnd, dateFormat: 'YYYY-MM-DD'"/>
       </div>
     </div>
 
@@ -449,7 +456,7 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 
-  $('body').on('focus',".input-daterange", function(){
+  $('body').on('focus', ".input-daterange", function () {
     $(this).datepicker({
       format: "yyyy-mm-dd",
       multidate: false,
