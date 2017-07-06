@@ -171,7 +171,68 @@ function addGanttChart(hook) {
     'actualEnd': hook.data.endDate,
     'progressValue': 0,
     'connector': []
-  }];
+  },
+    {
+      'id': '1',
+      'name': 'Initiation Phase',
+      'type': 'Task Group',
+      'periods': 0,
+      'baselineStart': hook.data.startDate,
+      'baselineEnd': hook.data.endDate,
+      'actualStart': hook.data.startDate,
+      'actualEnd': hook.data.endDate,
+      'progressValue': 0,
+      'connector': []
+    },
+    {
+      'id': '2',
+      'name': 'Planning Phase',
+      'type': 'Task Group',
+      'periods': 0,
+      'baselineStart': hook.data.startDate,
+      'baselineEnd': hook.data.endDate,
+      'actualStart': hook.data.startDate,
+      'actualEnd': hook.data.endDate,
+      'progressValue': 0,
+      'connector': []
+    },
+    {
+      'id': '3',
+      'name': 'Execution Phase',
+      'type': 'Task Group',
+      'periods': 0,
+      'baselineStart': hook.data.startDate,
+      'baselineEnd': hook.data.endDate,
+      'actualStart': hook.data.startDate,
+      'actualEnd': hook.data.endDate,
+      'progressValue': 0,
+      'connector': []
+    },
+    {
+      'id': '4',
+      'name': 'Control Phase',
+      'type': 'Task Group',
+      'periods': 0,
+      'baselineStart': hook.data.startDate,
+      'baselineEnd': hook.data.endDate,
+      'actualStart': hook.data.startDate,
+      'actualEnd': hook.data.endDate,
+      'progressValue': 0,
+      'connector': []
+    },
+    {
+      'id': '5',
+      'name': 'Monitoring Phase',
+      'type': 'Task Group',
+      'periods': 0,
+      'baselineStart': hook.data.startDate,
+      'baselineEnd': hook.data.endDate,
+      'actualStart': hook.data.startDate,
+      'actualEnd': hook.data.endDate,
+      'progressValue': 0,
+      'connector': []
+    }
+  ];
 
   hook.data = Object.assign({}, hook.data, {
     GanttChartData: data
