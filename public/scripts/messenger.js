@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  let user;
+  let messages;
   app.authenticate()
     .then(() => {
       app.service('messages').find({
@@ -8,9 +10,10 @@ $(document).ready(function () {
         }
       })
         .then(page => {
-          const messages = page.data.reverse();
-          const user = app.get('user');
-          
+          messages = page.data.reverse();
+          user = app.get('user');
+        })
+        .then(() => {
           for (let i = 0; i < messages.length; i++) {
             (function (i) {
               setTimeout(function () {
@@ -23,7 +26,6 @@ $(document).ready(function () {
               }, i * 50);
             })(i);
           }
-
         })
         .catch(function (error) {
           console.log(error);
