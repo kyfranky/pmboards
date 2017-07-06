@@ -610,14 +610,15 @@ anychart.onDocumentReady(function () {
 
               }
               else {
-                if (updateField === "periods" || updateField === "baselineperiods" || updateField === "type") return;
+                if (updateField === "actualPeriods" || updateField === "baselineperiods" || updateField === "type") return;
+
+
+                console.log(updateField);
+
 
                 saveGantt();
-
                 socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
-
                 createLog(updateField, updateItem.Ga.name, updateValue, 2);
-
                 console.log("GUA KIRIM")
               }
             }
