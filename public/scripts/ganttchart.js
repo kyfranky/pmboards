@@ -546,15 +546,28 @@ anychart.onDocumentReady(function () {
             else {
               if (updateField === "actualStart" || updateField === "actualEnd" || updateField === "baselineStart" || updateField === "baselineEnd") {
 
+                //console.log(moment(updateValue).format('YYYY-MM-DD HH:mm').isValid());
+
                 if (updateValue !== moment(updateValue).format('YYYY-MM-DD HH:mm')) {
+
+
+
                   let a = moment(updateValue).format("YYYY-MM-DD");
+
                   a = moment(a).set('hour', 19).format("YYYY-MM-DD HH:mm");
+
                   updateItem.set(updateField, a);
+
                   saveGantt();
-                  socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: a});
+
+                  //socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: a});
+
                   createLog(updateField, updateItem.Ga.name, moment(a).format("YYYY-MM-DD"), 2);
+
                   console.log("Kirim");
+
                   return;
+
                 }
 
                 if (updateItem.get("id") === "0") {
@@ -610,17 +623,13 @@ anychart.onDocumentReady(function () {
               else {
                 if (updateField === "actualPeriods" || updateField === "basePeriods" || updateField === "type") return;
 
-
                 console.log(updateField);
-
 
                 saveGantt();
 
                 setTimeout(function () {
                   socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
                 },100);
-
-
 
                 createLog(updateField, updateItem.Ga.name, updateValue, 2);
 
