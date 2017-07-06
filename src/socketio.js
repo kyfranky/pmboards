@@ -175,6 +175,7 @@ module.exports = function () {
         socket.to(getRoom()).emit("getDeletedGantt", data);
       });
 
+
       socket.on('message', function (message) {
 
         const room = clients[socket.id].roomId;
@@ -194,6 +195,17 @@ module.exports = function () {
         }
 
       });
+
+      socket.on('checkPresentation', function (data) {
+
+        if (!presentationdata[getRoom()]) {
+          socket.emit("isLive", false);
+        }
+        else {
+          socket.emit("isLive", true);
+        }
+
+      })
 
       socket.on('updateDocs', function (data) {
         presentationdata[getRoom()].Documents = data.documentId;
@@ -221,14 +233,13 @@ module.exports = function () {
 
       socket.on('updateMM', function () {
         console.log("asdasdasdsadasd")
-        socket.to(getRoom()).emit("updateMM",{})
+        socket.to(getRoom()).emit("updateMM", {})
       });
 
       socket.on('updateGantt', function () {
         console.log("asdasdasdsadasd")
-        socket.to(getRoom()).emit("updateGantt",{})
+        socket.to(getRoom()).emit("updateGantt", {})
       });
-
 
       socket.on('disconnect', function () {
 

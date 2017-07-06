@@ -12,6 +12,17 @@ $(document).ready(function () {
 
       socket.emit('ListMe', {id:app.get('user').id, name:(app.get('user').firstName+" "+app.get('user').lastName),profession:app.get('user').profession});
 
+      socket.emit('checkPresentation','asd');
+
+      socket.on('isLive', function (a) {
+
+        if(a){
+          $('#preslink').modernBlink();
+
+        }
+
+      });
+
       $('.username').append(user.firstName);
 
       app.service('projects').find({
