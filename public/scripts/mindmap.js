@@ -292,13 +292,6 @@ function init() {
                 socket.emit('sendMove', c);
                 const old = myDiagram.model.findNodeDataForKey(c.Os.parent).text;
 
-                if (c.Os.parent != 0) {
-                  createLog('Move Node', old, c.Os.text, 1);
-                }
-                else {
-                  createLog('Move Node', 'Central Idea', c.Os.text, 1);
-                }
-
                 arrays.push(c.object.key);
                 break;
 

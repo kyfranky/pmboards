@@ -56,6 +56,9 @@ function getData(data) {
 function renderPage(num) {
   pageRendering = true;
   // Using promise to fetch the page
+
+  if(!pdfDoc.getPage(num)) return
+
   pdfDoc.getPage(num).then(function (page) {
 
     var container = document.getElementById('the-container');
