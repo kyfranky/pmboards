@@ -615,9 +615,17 @@ anychart.onDocumentReady(function () {
 
 
                 saveGantt();
-                socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
+
+                setTimeout(function () {
+                  socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: updateValue});
+                },100);
+
+
+
                 createLog(updateField, updateItem.Ga.name, updateValue, 2);
+
                 console.log("GUA KIRIM")
+
               }
             }
 
