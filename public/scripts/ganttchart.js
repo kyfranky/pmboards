@@ -647,7 +647,14 @@ anychart.onDocumentReady(function () {
           });
 
           socket.on('setData', function (data) {
+
+            var updateItem = treeData.search("id", updateItemID);
+
+            // if(updateItem.get(data.field) )
+            console.log(updateItem.get(data.field), data.values);
+
             updateData(data.itemid, data.field, data.values)
+
           });
 
           socket.on('getCreatedGantt', function (data) {
@@ -661,13 +668,11 @@ anychart.onDocumentReady(function () {
           });
 
           function updateData(updateItemID, updateField, updateValue) {
-
-            console.log(updateItemID, updateField, updateValue);
-
             var updateItem = treeData.search("id", updateItemID);
             let sourceConnector = updateItem.get("connector");
             if (JSON.stringify(sourceConnector) === JSON.stringify(updateValue)) return;
             updateItem.set(updateField, updateValue);
+
           }
 
           function updateDuration(ID) {
