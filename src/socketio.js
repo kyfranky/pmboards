@@ -175,7 +175,6 @@ module.exports = function () {
         socket.to(getRoom()).emit("getDeletedGantt", data);
       });
 
-
       socket.on('message', function (message) {
 
         const room = clients[socket.id].roomId;

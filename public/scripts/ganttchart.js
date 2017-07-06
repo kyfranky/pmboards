@@ -552,9 +552,7 @@ anychart.onDocumentReady(function () {
                   updateItem.set(updateField, a);
                   saveGantt();
                   socket.emit('sendDataUpdate', {itemid: updateItem.Ga.id, field: updateField, values: a});
-
                   createLog(updateField, updateItem.Ga.name, moment(a).format("YYYY-MM-DD"), 2);
-
                   console.log("Kirim");
                   return;
                 }
@@ -587,6 +585,7 @@ anychart.onDocumentReady(function () {
                   updateItem.set("actualPeriods", moment(ae, "YYYY-MM-DD").diff(moment(as, "YYYY-MM-DD"), 'days'))
 
                 }
+
                 else {
                   saveGantt();
                   console.log(updateField, updateValue);
@@ -598,7 +597,6 @@ anychart.onDocumentReady(function () {
                   return;
                 }
                 else {
-
                   if (updateField == 'baselineStart' || updateField == 'baselineEnd') {
                     updateDurationBasline(updateItem.getParent().get("id"));
                   }
@@ -663,6 +661,9 @@ anychart.onDocumentReady(function () {
           });
 
           function updateData(updateItemID, updateField, updateValue) {
+
+            console.log(updateItemID, updateField, updateValue);
+
             var updateItem = treeData.search("id", updateItemID);
             let sourceConnector = updateItem.get("connector");
             if (JSON.stringify(sourceConnector) === JSON.stringify(updateValue)) return;
